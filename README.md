@@ -1,72 +1,68 @@
-local player = game.Players.LocalPlayer
-local char = player.Character
+--// Settings \\--
+local defaultHitboxSize = 3 -- default hitbox size
+local minHitboxSize = 1 -- minimum hitbox size
+local maxHitboxSize = 10 -- maximum hitbox size
 
-local currentHitboxScale = char.Head.Size.X
-local defaultHitboxScale = 2.5
+--// Create UI \\--
+local ui = Instance.new("ScreenGui")
+local mainFrame = Instance.new("Frame")
+local titleLabel = Instance.new("TextLabel")
+local hitboxLabel = Instance.new("TextLabel")
+local hitboxSize = Instance.new("TextBox")
+local applyButton = Instance.new("TextButton")
+local closeButton = Instance.new("TextButton")
 
-local function setHitboxScale(scale)
-    char.Head.Size = Vector3.new(scale, scale, scale)
-    char.Head.CFrame = char.Head.CFrame + Vector3.new(0, (scale - currentHitboxScale) / 2, 0)
-end
+--// UI Settings \\--
+ui.Name = "Hitbox Changer"
+ui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
-local function resetHitboxScale()
-    setHitboxScale(defaultHitboxScale)
-end
+mainFrame.Name = "MainFrame"
+mainFrame.Parent = ui
+mainFrame.BackgroundColor3 = Color3.new(0.156863, 0.156863, 0.156863)
+mainFrame.BorderSizePixel = 0
+mainFrame.Position = UDim2.new(0.5, -150, 0.5, -100)
+mainFrame.Size = UDim2.new(0, 300, 0, 200)
 
-local function onMenuButtonClicked()
-    local menu = Instance.new("ScreenGui")
-    local frame = Instance.new("Frame")
-    local resetButton = Instance.new("TextButton")
-    local smallButton = Instance.new("TextButton")
-    local mediumButton = Instance.new("TextButton")
-    local largeButton = Instance.new("TextButton")
-    
-    menu.Name = "HitboxMenu"
-    menu.Parent = game.CoreGui
-    
-    frame.Name = "Frame"
-    frame.Parent = menu
-    frame.BackgroundColor3 = Color3.new(1, 1, 1)
-    frame.BorderSizePixel = 0
-    frame.Position = UDim2.new(0.5, -50, 0.5, -50)
-    frame.Size = UDim2.new(0, 100, 0, 100)
-    
-    resetButton.Name = "ResetButton"
-    resetButton.Parent = frame
-    resetButton.BackgroundColor3 = Color3.new(0, 1, 0)
-    resetButton.BorderSizePixel = 0
-    resetButton.Position = UDim2.new(0, 10, 0, 10)
-    resetButton.Size = UDim2.new(0, 80, 0, 20)
-    resetButton.Font = Enum.Font.SourceSans
-    resetButton.Text = "Reset"
-    resetButton.TextColor3 = Color3.new(1, 1, 1)
-    resetButton.TextSize = 14
-    resetButton.MouseButton1Click:Connect(function()
-        resetHitboxScale()
-    end)
-    
-    smallButton.Name = "SmallButton"
-    smallButton.Parent = frame
-    smallButton.BackgroundColor3 = Color3.new(0, 0, 1)
-    smallButton.BorderSizePixel = 0
-    smallButton.Position = UDim2.new(0, 10, 0, 40)
-    smallButton.Size = UDim2.new(0, 80, 0, 20)
-    smallButton.Font = Enum.Font.SourceSans
-    smallButton.Text = "Small"
-    smallButton.TextColor3 = Color3.new(1, 1, 1)
-    smallButton.TextSize = 14
-    smallButton.MouseButton1Click:Connect(function()
-        setHitboxScale(1.5)
-    end)
-    
-    mediumButton.Name = "MediumButton"
-    mediumButton.Parent = frame
-    mediumButton.BackgroundColor3 = Color3.new(1, 1, 0)
-    mediumButton.BorderSizePixel = 0
-    mediumButton.Position = UDim2.new(0, 10, 0, 70)
-    mediumButton.Size = UDim2.new(0, 80, 0, 20)
-    mediumButton.Font = Enum.Font.SourceSans
-    mediumButton.Text = "Medium"
-    mediumButton.TextColor3 = Color3.new(1, 1, 1)
-    mediumButton.TextSize = 14
-    mediumButton.MouseButton1
+titleLabel.Name = "TitleLabel"
+titleLabel.Parent = mainFrame
+titleLabel.BackgroundColor3 = Color3.new(1, 1, 1)
+titleLabel.BackgroundTransparency = 1
+titleLabel.Position = UDim2.new(0, 0, 0, 15)
+titleLabel.Size = UDim2.new(1, 0, 0, 50)
+titleLabel.Font = Enum.Font.SourceSansBold
+titleLabel.Text = "Hitbox Changer"
+titleLabel.TextColor3 = Color3.new(1, 1, 1)
+titleLabel.TextScaled = true
+titleLabel.TextSize = 14
+titleLabel.TextWrapped = true
+
+hitboxLabel.Name = "HitboxLabel"
+hitboxLabel.Parent = mainFrame
+hitboxLabel.BackgroundColor3 = Color3.new(1, 1, 1)
+hitboxLabel.BackgroundTransparency = 1
+hitboxLabel.Position = UDim2.new(0, 50, 0, 80)
+hitboxLabel.Size = UDim2.new(0, 200, 0, 50)
+hitboxLabel.Font = Enum.Font.SourceSansBold
+hitboxLabel.Text = "Hitbox Size:"
+hitboxLabel.TextColor3 = Color3.new(1, 1, 1)
+hitboxLabel.TextScaled = true
+hitboxLabel.TextSize = 14
+hitboxLabel.TextWrapped = true
+
+hitboxSize.Name = "HitboxSize"
+hitboxSize.Parent = mainFrame
+hitboxSize.BackgroundColor3 = Color3.new(0.156863, 0.156863, 0.156863)
+hitboxSize.BorderSizePixel = 0
+hitboxSize.Position = UDim2.new(0, 50, 0, 120)
+hitboxSize.Size = UDim2.new(0, 200, 0, 50)
+hitboxSize.Font = Enum.Font.SourceSansBold
+hitboxSize.PlaceholderText = "Enter hitbox size"
+hitboxSize.Text = defaultHitboxSize
+hitboxSize.TextColor3 = Color3.new(1, 1, 1)
+hitboxSize.TextScaled = true
+hitboxSize.TextSize = 14
+hitboxSize.TextWrapped = true
+
+applyButton.Name = "ApplyButton"
+applyButton.Parent = mainFrame
+applyButton.BackgroundColor3 = Color3.new(0.
